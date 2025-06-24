@@ -11,7 +11,17 @@ void compile(FILE *f, int size) {
 _t*t=malloc(%d*sizeof(uint8_t));", size, size);
     fprintf(out, "int i=0;");
     char c;
+    char lastC = '\0';
+    int consecutive = 0;
     while ((c = getc(f)) != EOF) {
+        if (lastC != c) {
+            if (lastC == '+' || lastC == '-') {
+                fprintf(out, "m[i]%c=%d;", lastC, consecutive);
+            }
+            consecutive = 0;
+        }
+        lastC = c;
+        ++consecutive;
         switch (c) {
             case '.':
                 fprintf(out, "fputc((char)m[i],stdout);");
@@ -24,12 +34,6 @@ _t*t=malloc(%d*sizeof(uint8_t));", size, size);
                 break;
             case '<':
                 fprintf(out, "--i;");
-                break;
-            case '+':
-                fprintf(out, "++m[i];");
-                break;
-            case '-':
-                fprintf(out, "--m[i];");
                 break;
             case '[':
                 fprintf(out, "while(m[i]){");

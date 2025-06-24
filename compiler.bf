@@ -4,7 +4,7 @@
     program.
 ]
 
-First task: output the first outputs that are necessary
+First task: output the includes
 
 >++++[<++++++++>-]<                     Save space character in cell 0
 
@@ -38,5 +38,18 @@ First task: output the first outputs that are necessary
 ++++++.                                 Print "h"
 <+++++[>--------<-]>--.                 Print ascii 62 (closed angle bracket)
 
->.<                                     Print newline and store it in cell 3
+>.<                                     Print newline
 
+Reference for the state of the cells:
+
+0   1   2   3   4   5   6
+32  0   62  10  0   0   0
+        ptr
+
+Second task: output "int main(){uint8_t*m=malloc("
+
+<++++++[>+++++++<-]>+.+++++.++++++.      Print "int"
+<<.>>                                   Print space
+-------.------------.++++++++.+++++.    Print "main"
+
+>.<                                     Print newline
