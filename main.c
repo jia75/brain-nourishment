@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-uint8_t *mem;
+int devmode = 0;
 
 void compile(FILE *f, int size) {
     FILE *out = fopen("out.c", "w");
@@ -36,6 +37,9 @@ _t*t=malloc(%d*sizeof(uint8_t));", size, size);
             case ']':
                 fprintf(out, "}");
                 break;
+            case '^':
+                if (devmode) fprintf(out, "fprintf(stdout,\"%%d\",m[i]);");
+                break;
         }
     }
     fprintf(out, "free(m);free(t);return 0;}\n");
@@ -44,16 +48,23 @@ _t*t=malloc(%d*sizeof(uint8_t));", size, size);
 
 int main(int argc, char **argv) {
     if (argc == 1) {
-        fprintf(stderr, "Not enough argument\n");
+        fprintf(stderr, "Not enough arguments\n");
         return 1;
     }
-    FILE *f = fopen(argv[1], "r");
+    int i = 1;
+    if (!strcmp(argv[i], "-d")) {
+        devmode = 1;
+        --argc;
+        ++i;
+    }
+    FILE *f = fopen(argv[i], "r");
+    ++i;
     if (argc == 2) {
         compile(f, 2048);
         fclose(f);
         return 0;
     }
     int size = 2048;
-    sscanf(argv[2], "%d", &size);
+    sscanf(argv[i], "%d", &size);
     compile(f, size);
 }
