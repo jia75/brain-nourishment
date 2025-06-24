@@ -6,9 +6,10 @@ int devmode = 0;
 
 void compile(FILE *f, int size) {
     FILE *out = fopen("out.c", "w");
-    fprintf(out, "#include <stdio.h>\n#include <stdlib.h>\n");
-    fprintf(out, "int main(){uint8_t*m=malloc(%d*sizeof(uint8_t));m[0]=0;uint8\
-_t*t=malloc(%d*sizeof(uint8_t));", size, size);
+    fprintf(out, "#include <stdio.h>\n#include <stdlib.h>\n#include <memory.h>\
+\n");
+    fprintf(out, "int main(){uint8_t*m=malloc(%d*sizeof(uint8_t));m[0]=0;memse\
+t(m,0,sizeof(uint8_t)*%d);", size, size);
     fprintf(out, "int i=0;");
     char c;
     char lastC = '\0';
@@ -30,7 +31,7 @@ _t*t=malloc(%d*sizeof(uint8_t));", size, size);
                 fprintf(out, "m[i]=(uint8_t)getc(stdin);");
                 break;
             case '>':
-                fprintf(out, "++i;if(t[i]!=100){m[i]=0;t[i]=100;}");
+                fprintf(out, "++i;");
                 break;
             case '<':
                 fprintf(out, "--i;");
@@ -42,11 +43,11 @@ _t*t=malloc(%d*sizeof(uint8_t));", size, size);
                 fprintf(out, "}");
                 break;
             case '^':
-                if (devmode) fprintf(out, "fprintf(stdout,\"%%d\",m[i]);");
+                if (devmode) fprintf(out, "fprintf(stdout,\"%%d \",m[i]);");
                 break;
         }
     }
-    fprintf(out, "free(m);free(t);return 0;}\n");
+    fprintf(out, "free(m);return 0;}\n");
     fclose(out);
 }
 

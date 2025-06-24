@@ -48,8 +48,13 @@ Reference for the state of the cells:
 
 Second task: output "int main(){uint8_t*m=malloc("
 
-<++++++[>+++++++<-]>+.+++++.++++++.      Print "int"
+<++++++[>+++++++<-]>+.+++++.++++++.     Print "int"
 <<.>>                                   Print space
 -------.------------.++++++++.+++++.    Print "main"
+>>+++++[>++++++++<-]>.+.[-]<<<          Print "()"
++++++++++++++.------.------------.      Print "{ui"
++++++.++++++.<++++++[>----------<-]>.   Print "nt8"
+
+<++++++++[>+++++<-]>-.<+++++[>++++<-]>+.Print "_t"
 
 >.<                                     Print newline
