@@ -19,6 +19,9 @@ t(m,0,sizeof(uint8_t)*%d);", size, size);
             if (lastC == '+' || lastC == '-') {
                 fprintf(out, "m[i]%c=%d;", lastC, consecutive);
             }
+            if (lastC == '<' || lastC == '>') {
+                fprintf(out, "i%c=%d;", lastC == '<' ? '-' : '+', consecutive);
+            }
             consecutive = 0;
         }
         lastC = c;
@@ -30,12 +33,6 @@ t(m,0,sizeof(uint8_t)*%d);", size, size);
             case ',':
                 fprintf(out, "m[i]=(uint8_t)getc(stdin);");
                 break;
-            case '>':
-                fprintf(out, "++i;");
-                break;
-            case '<':
-                fprintf(out, "--i;");
-                break;
             case '[':
                 fprintf(out, "while(m[i]){");
                 break;
@@ -44,6 +41,9 @@ t(m,0,sizeof(uint8_t)*%d);", size, size);
                 break;
             case '^':
                 if (devmode) fprintf(out, "fprintf(stdout,\"%%d \",m[i]);");
+                break;
+            case '$':
+                if (devmode) fprintf(out, "fprintf(stdout,\"%%d \",i);");
                 break;
         }
     }
