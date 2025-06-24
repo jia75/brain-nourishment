@@ -6,4 +6,10 @@
 
 First task: output the first outputs that are necessary
 
-+++++[>+++++++<-]>.                     Print # character ^^^^^^
+>++++[<++++++++>-]<                     Save space character in cell 0
+
+>+++++[>+++++++<-]>.                    Print # character
+<+++++++[>++++++++++<-]>.               Print i character
++++++.-----------.+++++++++.+++++++++.  Print nclu
+<++++++[>---<-]>+.+.<<.>>               Print "de "
+>++++++++++.<                           Print newline and store it in cell 3
