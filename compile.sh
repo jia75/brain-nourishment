@@ -6,6 +6,6 @@ then
     exit 1
 fi
 
-./compile $@
+cat "$1" | ./compile > out.c
 
 cc out.c -o bf.out
