@@ -136,8 +136,83 @@ Second task: output "int main(){uint8_t*m=malloc("
 
 [-]                                     Set c2 to 0
 
+<[-]<[-]>>                              Set c1 and c0 to 0
+
+                                        c0 stores last seen character; c1
+                                            stores how many times in a row it
+                                            has been seen
+
 +[                                      Start reading loop off c2
     >,                                  Read into c3
+
+    [->+>+<<]>>[-<<+>>]                 Copy c3 to c4 via c5
+    <<<<<[->>>>>+>+<<<<<<]>>>>>>[-<<<<<<Copy c0 to c5 via c6
+        +>>>>>>]
+
+    <<[->-<]                            Subtract c4 from c5
+
+    >[                                  If c5 is nonzero (ie if c4 and c5 are
+                                            different
+        [-]                             Zero c5
+
+        <<<<<[->>>>+>+<<<<<]>>>>>[-<<<<<Copy c0 to c4 via c5
+        +>>>>>]
+
+        >++<<                           Set c6 to 2 to show no plus/minus found
+
+        --------------------------------If c4 is not 43 (aka plus in ascii)
+        -----------[                            
+            >>-<<                       Set c6 to 1
+            [-]                         Reset c4
+        ]
+
+        <<<<[->>>>+>+<<<<<]>>>>>[-<<<<< Copy c0 to c4 via c5
+        +>>>>>]
+
+        <                               Go to c4
+
+        --------------------------------If c4 is not 45 (aka minus in ascii)
+        -------------[                            
+            >>-<<                       Set c6 to 0
+            [-]                         Reset c4
+        ]
+
+        >>[                             If c6 (ie if it is a plus)
+            [-]                         Zero c6 to print
+            ++++++++++++++++++++++++++++Print m(i) (with squares)
+            ++++++++++++++++++++++++++++
+            ++++++++++++++++++++++++++++
+            +++++++++++++++++++++++++.--
+            ----------------.+++++++++++
+            +++.------------.
+            <<<<<<.>>>>>>               Print c0
+            ----------------------------Print =
+            ----.
+            [-]                         Clear c6
+            <<<<<[->>>>+>+<<<<<]>>>>[-<<Copy c1 to c6 via c5
+            <<+>>>>]>
+            ++++++++++++++++++++++++++++Add 48 to c6 to make it into a digit
+            ++++++++++++++++++++
+            .                           Print it
+            [-]+++++++++++++++++++++++++Print a semicolon
+            ++++++++++++++++++++++++++++
+            ++++++.
+            [-]                         Zero c6 to end loop
+        ]
+
+        <<<<<<[-]>>>                    Zero c0 and go to c3
+
+        [-<<<+>>>>+<]>[-<+>]            Copy c3 to c0 via c4                   
+
+        <<<[-]>>>                       Set c1 to 0
+
+        >                               Go back to c5
+    ]
+
+    <<                                  Go to c3
+    
+    <<+>>                               Increment c1
+
     >++                                 Set c4 to 2 signifying that no end
                                             characters have been found
     >+                                  Set c5 to 1 signifying that no 
@@ -268,13 +343,7 @@ Second task: output "int main(){uint8_t*m=malloc("
 
     >>>>[                               Check c8 for plus character
         [-]                             Zero c8 to have space to print
-        ++++++++++++++++++++++++++++++++
-        +++++++++++..+++++++++++++++++++
-        ++++++++++++++++++++++++++++++++
-        +++++++++++++++.----------------
-        --.++++++++++++++.------------.-
-        --------------------------------
-        -.
+        WAS REPLACED BY CONSECUTIVE
         [-]                             Zero c8 again to exit the loop
     ]
 
@@ -313,13 +382,7 @@ Second task: output "int main(){uint8_t*m=malloc("
 
     >[                                  Check c10 for minus character
         [-]                             Zero c10 to have space to print
-        ++++++++++++++++++++++++++++++++
-        +++++++++++++..+++++++++++++++++
-        ++++++++++++++++++++++++++++++++
-        +++++++++++++++.----------------
-        --.++++++++++++++.------------.-
-        --------------------------------
-        -.
+        WAS REPLACED BY CONSECUTIVE
         [-]                             Zero c10 again to exit the loop
     ]
 
