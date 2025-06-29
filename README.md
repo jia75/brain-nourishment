@@ -1,5 +1,7 @@
 # Brain Nourishment
 
+![Static Badge](https://img.shields.io/badge/License-GPL_2-red) ![Static Badge](https://img.shields.io/badge/No-AI-green)
+
 Brain Nourishment is a series of programs that end up with "Yelp Review Emulator," a text-based RPG written in about a quarter million Brainf\*ck characters. Additionally, it gets compiled via a self-hosted Brainf\*ck compiler.
 
 Also, here is a list of the various files of interest:
